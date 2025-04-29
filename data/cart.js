@@ -1,3 +1,10 @@
+export let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveToLocalStorage() {
+  // save the cart to local storage
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
 export function addToCart(productId, productQuantity) {
     // check if the product is already in the cart and update the quantity
     let matchedProduct;
@@ -19,6 +26,8 @@ export function addToCart(productId, productQuantity) {
         productQuantity,
       });
     }
+    // save the cart to local storage
+    saveToLocalStorage();
 }
 
 export function removeFromCart(productId) {
@@ -30,16 +39,8 @@ export function removeFromCart(productId) {
     }
 
     cart = newCart;
+
+    // save the cart to local storage
+    saveToLocalStorage();
   });
 }
-
-export let cart = [
-    {
-        "productId":"54e0eccd-8f36-462b-b68a-8182611d9add",
-        "productQuantity":2
-    },
-    {
-        "productId": "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-        "productQuantity": 1
-    }
-];

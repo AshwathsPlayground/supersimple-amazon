@@ -92,10 +92,8 @@ document.querySelector('.js-checkout-order-summary').innerHTML = cartHTML;
 
 document.querySelectorAll('.js-delete-button')
 .forEach((button) => {
-    console.log(button)
     button.addEventListener('click', () => {
             removeFromCart(button.dataset.productId);
-            console.log(cart);
 
             // remove the cart item from the DOM
             const cartItemContainer = document.querySelector(`.js-cart-item-container-${button.dataset.productId}`);
