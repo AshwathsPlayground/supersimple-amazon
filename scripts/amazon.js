@@ -86,7 +86,7 @@ document.querySelectorAll('.js-add-to-cart')
     addToCart(productId, productQuantity);
     
     // update cart quantity in the header
-    console.log(cart.length);
+    console.log(cart);
     document.querySelector('.js-cart-quantity').innerText = cart.length; 
 
     // get product details from productId

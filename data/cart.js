@@ -3,6 +3,8 @@ export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 export function saveToLocalStorage() {
   // save the cart to local storage
   localStorage.setItem("cart", JSON.stringify(cart));
+  // refresh page
+  window.location.reload();
 }
 
 export function addToCart(productId, productQuantity) {
@@ -24,6 +26,7 @@ export function addToCart(productId, productQuantity) {
       cart.push({
         productId: productId,
         productQuantity,
+        deliveryOptionsId: '2',
       });
     }
     // save the cart to local storage
