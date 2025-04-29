@@ -21,7 +21,19 @@ export function addToCart(productId, productQuantity) {
     }
 }
 
-export const cart = [
+export function removeFromCart(productId) {
+  const newCart = [];
+
+  cart.forEach((item) => {
+    if (item.productId !== productId) {
+      newCart.push(item);
+    }
+
+    cart = newCart;
+  });
+}
+
+export let cart = [
     {
         "productId":"54e0eccd-8f36-462b-b68a-8182611d9add",
         "productQuantity":2
