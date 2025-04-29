@@ -1,8 +1,10 @@
-import { cart, removeFromCart } from '../data/cart.js';
+import { cart, removeFromCart, saveToLocalStorage } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 
 let cartHTML = ``;
+
+document.querySelector('.js-checkout-header-quantity').innerHTML = `${cart.length}`;
 
 cart.forEach((item) => {
     // find the product in the products array using the productId
@@ -28,11 +30,17 @@ cart.forEach((item) => {
             </div>
             <div class="product-quantity">
                 <span>
-                Quantity: <span class="quantity-label">${item.productQuantity}</span>
+                Quantity: <span class="quantity-label" data-product-id = ${product.id}>${item.productQuantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary">
+                <span class="update-quantity-link link-primary js-update-button" data-product-id = "${product.id}">
                 Update
                 </span>
+
+                <input style = "display : none;" type="number" class="update-quantity-input" data-product-id = "${product.id}" value="${item.productQuantity}">
+                <span style = "display :none;" class="save-quantity-link link-primary js-save-button" data-product-id = "${product.id}">
+                Save
+                </span>
+
                 <span class="delete-quantity-link link-primary js-delete-button" data-product-id = "${product.id}">
                 Delete
                 </span>
@@ -98,7 +106,45 @@ document.querySelectorAll('.js-delete-button')
             // remove the cart item from the DOM
             const cartItemContainer = document.querySelector(`.js-cart-item-container-${button.dataset.productId}`);
             cartItemContainer.remove();
-            
+            document.querySelector('.js-checkout-header-quantity').innerHTML = `${cart.length}`;
+
     });
 });
 
+document.querySelectorAll('.js-update-button').forEach((button) => {
+    button.addEventListener('click', () => {
+
+        const inputText = document.querySelector(`.update-quantity-input[data-product-id="${button.dataset.productId}"]`);
+        const saveButton = document.querySelector(`.js-save-button[data-product-id="${button.dataset.productId}"]`);
+        const quantityLabel = document.querySelector(`.quantity-label[data-product-id="${button.dataset.productId}"]`);
+
+        quantityLabel.style.display = 'none';
+        button.style.display = 'none';
+        inputText.style.display = 'inline';
+        saveButton.style.display = 'inline';
+
+        // add event listener to the save button
+        saveButton.addEventListener('click', () => {
+            const newQuantity = parseInt(inputText.value);
+            const productId = button.dataset.productId;
+
+            // update the cart with the new quantity
+            cart.forEach((item) => {
+                if (item.productId === productId) {
+                    item.productQuantity = newQuantity;
+                }
+            });
+
+            // save the cart to local storage
+           saveToLocalStorage(); 
+
+            // update the quantity label in the DOM
+            quantityLabel.innerHTML = `${newQuantity}`;
+            quantityLabel.style.display = 'inline';
+            button.style.display = 'inline';
+            inputText.style.display = 'none';
+            saveButton.style.display = 'none';
+        });
+
+    });
+});
