@@ -133,8 +133,8 @@ function Cart(localStorageKey){
 
 const cart = Cart("cart");
 const businessCart = Cart("business-cart");
-businessCart.saveToLocalStorage();
-businessCart.addToCart('54e0eccd-8f36-462b-b68a-8182611d9add', 3);
+// businessCart.saveToLocalStorage();
+// businessCart.addToCart('54e0eccd-8f36-462b-b68a-8182611d9add', 3);
 
 console.log(cart);
 console.log(businessCart);
