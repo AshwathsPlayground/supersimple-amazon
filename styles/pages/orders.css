@@ -20,14 +20,21 @@
 }
 
 .orders-grid {
+  background-color: white;
+  border: 1px solid #e0e0e0;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 50px;
 }
 
+.order-container {
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
+}
+
 .order-header {
-  background-color: rgb(240, 242, 242);
-  border: 1px solid rgb(213, 217, 217);
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #e0e0e0;
 
   display: flex;
   align-items: center;
@@ -86,6 +93,7 @@
 }
 
 .order-details-grid {
+  background-color: white;
   padding: 40px 25px;
   border: 1px solid rgb(213, 217, 217);
   border-top: none;
@@ -136,6 +144,10 @@
 }
 
 .buy-again-button {
+  background-color: #4d4d4d;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
   font-size: 15px;
   width: 140px;
   height: 36px;
@@ -155,7 +167,11 @@
   align-self: start;
 }
 
-.track-package-button {
+.track-shipment-button {
+  background-color: #4d4d4d;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
   width: 100%;
   font-size: 15px;
   padding: 8px;
@@ -176,7 +192,7 @@
     margin-bottom: 30px;
   }
 
-  .track-package-button {
+  .track-shipment-button {
     width: 140px;
   }
 }
@@ -213,8 +229,22 @@
     margin-bottom: 70px;
   }
 
-  .track-package-button {
+  .track-shipment-button {
     width: 100%;
     padding: 12px;
   }
+}
+
+.product-info-cell:hover {
+  background-color: #f8f9fa;
+}
+
+.order-link {
+  color: #4d4d4d;
+  text-decoration: none;
+}
+
+.order-link:hover {
+  color: #0066cc;  /* Blue hover */
+  text-decoration: underline;
 }

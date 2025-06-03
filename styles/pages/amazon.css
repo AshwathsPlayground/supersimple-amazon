@@ -1,9 +1,11 @@
 .main {
   margin-top: 60px;
+  background-color: #f2f2f2;
 }
 
 .products-grid {
   display: grid;
+  background-color: white;
 
   /* - In CSS Grid, 1fr means a column will take up the
        remaining space in the grid.
@@ -71,8 +73,8 @@
   padding-left: 25px;
   padding-right: 25px;
 
-  border-right: 1px solid rgb(231, 231, 231);
-  border-bottom: 1px solid rgb(231, 231, 231);
+  border: 1px solid #e0e0e0;
+  background-color: white;
 
   display: flex;
   flex-direction: column;
@@ -98,6 +100,7 @@
 .product-name {
   height: 40px;
   margin-bottom: 5px;
+  color: #1a1a1a;
 }
 
 .product-rating-container {
@@ -120,6 +123,7 @@
 .product-price {
   font-weight: 700;
   margin-bottom: 10px;
+  color: #333;
 }
 
 .product-quantity-container {
@@ -154,4 +158,16 @@
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+}
+
+.button-primary {
+  background-color: #4d4d4d;
+  border: none;
+  color: white;
+}
+
+.button-secondary {
+  background-color: #666;
+  border: none;
+  color: white;
 }
