@@ -2,14 +2,16 @@ import { products } from './products.js';
 import { deliveryOptions } from './deliveryOptions.js'; 
 
 class Cart{
+    #localStorageKey;  // private property, cannot be accessed outside the class
+    cartItems;
     constructor(localStorageKey){
-        this.localStorageKey = localStorageKey; 
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
-        this.saveToLocalStorage(this.localStorageKey);
+        this.#localStorageKey = localStorageKey; 
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
+        this.#saveToLocalStorage(this.#localStorageKey);
     }
 
-    saveToLocalStorage(localStorageKey){
-        localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
+    #saveToLocalStorage(){
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
     
     addToCart(productId, productQuantity) {
@@ -35,7 +37,7 @@ class Cart{
         });
         }
         // save the cart to local storage
-        this.saveToLocalStorage();
+        this.#saveToLocalStorage();
         }
 
     renderOrderSummary(){
@@ -131,8 +133,7 @@ class Cart{
 
 const cart = new Cart("cart");
 const businessCart = new Cart("business-cart");
-businessCart.saveToLocalStorage();
 businessCart.addToCart('54e0eccd-8f36-462b-b68a-8182611d9add', 2);
 
-console.log(cart);
-console.log(businessCart);
+// cart.#localStorageKey = 'cart'; 
+// Uncaught SyntaxError: reference to undeclared private field or method #localStorageKey
