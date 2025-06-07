@@ -3,64 +3,67 @@ import { products } from '../data/products.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
 import '../data/cart-class.js';
+import { loadProducts } from '../data/products.js';
 
-let cartHTML = ``;
+loadProducts(() => {
+    let cartHTML = ``;
 
-cart.forEach((item) => {
-    // find the product in the products array using the productId
-    const product = products.find((product) => product.id === item.productId);
-    
-    // create the cart item HTML
-    cartHTML += `
-        <div class="cart-item-container js-cart-item-container-${product.id}">
-            <div class="delivery-date js-delivery-date" data-product-id="${product.id}">
-                Delivery date: Tuesday, June 21
-            </div>
-            
-            <div class="cart-item-details-grid">
-                <img class="product-image" src="${product.image}">
-                
-                <div class="cart-item-details">
-                    <div class="product-name">
-                        ${product.name}
-                    </div>
-                    <div class="product-price">
-                        ${product.formatMoney(product.priceCents)}
-                    </div>
-                    <div class="product-quantity">
-                        <span>
-                            Quantity: <span class="quantity-label" data-product-id="${product.id}">${item.productQuantity}</span>
-                        </span>
-                        <span class="update-quantity-link link-primary js-update-button" data-product-id="${product.id}">
-                            Update
-                        </span>
-                        
-                        <input style="display: none;" type="number" class="update-quantity-input" data-product-id="${product.id}" value="${item.productQuantity}">
-                        <span style="display: none;" class="save-quantity-link link-primary js-save-button" data-product-id="${product.id}">
-                            Save
-                        </span>
-                        
-                        <span class="delete-quantity-link link-primary js-delete-button" data-product-id="${product.id}">
-                            Delete
-                        </span>
-                    </div>
-                </div>
-                <div class="delivery-options">
-                    ${renderDeliverOptions(product, deliveryOptions, cart)}
-                </div>
-            </div>
-        </div>
-    `;
-    document.querySelector('.js-checkout-order-summary').innerHTML = cartHTML;
+    cart.forEach((item) => {
+        // find the product in the products array using the productId
+        const product = products.find((product) => product.id === item.productId);
         
-    renderOrderSummary();
+        // create the cart item HTML
+        cartHTML += `
+            <div class="cart-item-container js-cart-item-container-${product.id}">
+                <div class="delivery-date js-delivery-date" data-product-id="${product.id}">
+                    Delivery date: Tuesday, June 21
+                </div>
+                
+                <div class="cart-item-details-grid">
+                    <img class="product-image" src="${product.image}">
+                    
+                    <div class="cart-item-details">
+                        <div class="product-name">
+                            ${product.name}
+                        </div>
+                        <div class="product-price">
+                            ${product.formatMoney(product.priceCents)}
+                        </div>
+                        <div class="product-quantity">
+                            <span>
+                                Quantity: <span class="quantity-label" data-product-id="${product.id}">${item.productQuantity}</span>
+                            </span>
+                            <span class="update-quantity-link link-primary js-update-button" data-product-id="${product.id}">
+                                Update
+                            </span>
+                            
+                            <input style="display: none;" type="number" class="update-quantity-input" data-product-id="${product.id}" value="${item.productQuantity}">
+                            <span style="display: none;" class="save-quantity-link link-primary js-save-button" data-product-id="${product.id}">
+                                Save
+                            </span>
+                            
+                            <span class="delete-quantity-link link-primary js-delete-button" data-product-id="${product.id}">
+                                Delete
+                            </span>
+                        </div>
+                    </div>
+                    <div class="delivery-options">
+                        ${renderDeliverOptions(product, deliveryOptions, cart)}
+                    </div>
+                </div>
+            </div>
+        `;
+        document.querySelector('.js-checkout-order-summary').innerHTML = cartHTML;
+            
+        renderOrderSummary();
 
-    const option = cart.find((item) => item.productId === product.id).deliveryOptionsId;
-    const days = deliveryOptions.find((opt) => opt.id === option).days;
-    const deliveryDate = dayjs().add(days, 'day').format('dddd, MMMM D');
-    renderDeliveryDateHeader(deliveryDate, product.id);
+        const option = cart.find((item) => item.productId === product.id).deliveryOptionsId;
+        const days = deliveryOptions.find((opt) => opt.id === option).days;
+        const deliveryDate = dayjs().add(days, 'day').format('dddd, MMMM D');
+        renderDeliveryDateHeader(deliveryDate, product.id);
 
 
+    });
 });
 
 function renderDeliveryDateHeader(deliveryDate, productId) {
