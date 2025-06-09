@@ -3,9 +3,8 @@ import { products } from '../data/products.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
 import '../data/cart-class.js';
-import { loadProducts } from '../data/products.js';
 
-loadProducts(() => {
+// loadProducts(() => {
     let cartHTML = ``;
 
     cart.forEach((item) => {
@@ -64,7 +63,7 @@ loadProducts(() => {
 
 
     });
-});
+// });
 
 function renderDeliveryDateHeader(deliveryDate, productId) {
     setTimeout(() => {

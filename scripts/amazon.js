@@ -1,8 +1,19 @@
-import { products, loadProducts } from '../data/products.js';
+import { fetchProducts } from '../data/products.js';
 import { cart, addToCart } from '../data/cart.js';
 
-loadProducts(renderProducts);
+// loadProducts(renderProducts);
 
+// fetch products from the server
+let products = [];
+
+fetchProducts()
+  .then(data => {
+    products = data;
+    renderProducts();
+  })
+  .catch(error => {
+    console.error('Error fetching products:', error);
+  });
 
 function renderProducts(){
   let productHTML = ``;
