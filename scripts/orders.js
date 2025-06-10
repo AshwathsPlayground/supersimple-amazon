@@ -1,6 +1,6 @@
 import { products } from '../data/products.js';
 import { orders } from '../data/ordersData.js';
-import { cart } from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 export function addOrder(order) {
   orders.unshift(order);
   saveOrders();
@@ -61,7 +61,7 @@ function renderOrders() {
           <div class="product-quantity">
             Quantity: ${product.quantity}
           </div>
-          <button class="buy-again-button button-primary">
+          <button class="buy-again-button button-primary js-buy-again" data-product-id="${product.productId}">
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
@@ -113,3 +113,19 @@ if (document.readyState === 'loading') {
 } else {
   renderOrders();
 }
+
+const buyAgainButtons = document.querySelectorAll('.js-buy-again');
+
+buyAgainButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    console.log('Buy it again button clicked');
+
+    const productId = button.dataset.productId;
+    
+    addToCart(productId, 1);
+    renderOrders();
+
+    // redirect to the cart page
+    window.location.href = 'checkout.html';
+  });
+});
