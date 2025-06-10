@@ -6,14 +6,16 @@ import { cart, addToCart } from '../data/cart.js';
 // fetch products from the server
 let products = [];
 
-fetchProducts()
-  .then(data => {
-    products = data;
+async function loadProducts() {
+  try {
+    products = await fetchProducts();
     renderProducts();
-  })
-  .catch(error => {
+  } catch (error) {
     console.error('Error fetching products:', error);
-  });
+  }
+}
+
+loadProducts();
 
 function renderProducts(){
   let productHTML = ``;
