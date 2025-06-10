@@ -1,6 +1,5 @@
 import { fetchProducts } from '../data/products.js';
 import { cart, addToCart } from '../data/cart.js';
-
 // loadProducts(renderProducts);
 
 // fetch products from the server
